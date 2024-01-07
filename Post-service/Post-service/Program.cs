@@ -5,6 +5,7 @@ using RabbitMQ_Messenger_Lib.Types;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using Post_service.AuthConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, Post_service.AuthConfig.HasScopeHandler>();
+builder.Services.AddSingleton(new ManagementAPIConfig() { Audience = builder.Configuration["Auth0:Audience"], Domain = builder.Configuration["Auth0:Domain"], ClientID = builder.Configuration["Auth0:ManagementAPI:ClientID"], ClientSecret = builder.Configuration["Auth0:ManagementAPI:ClientSecret"] });
 
 MessengerConfig messengerConfig = new MessengerConfig() { HostName = builder.Configuration["MessageBus:Host"], Exchange = builder.Configuration["MessageBus:Exchange"]};
 builder.Services.AddSingleton(messengerConfig);

@@ -38,4 +38,13 @@ namespace Post_service.AuthConfig
             return Task.CompletedTask;
         }
     }
+
+    public class ManagementAPIConfig
+    {
+        public ManagementAPIConfig() { }
+        public string ClientID { get; set; }
+        public string ClientSecret { get; set; }
+        public string Domain { get; set; }
+        public string Audience { get; set; }
+    }
 }
